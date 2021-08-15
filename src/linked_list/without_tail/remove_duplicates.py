@@ -1,7 +1,7 @@
-from src.linked_list.linked_list import LinkedList
+from src.linked_list.without_tail.linked_list import LinkedListWithoutTail
 
 
-def remove_duplicates(linked_list: LinkedList) -> LinkedList:
+def remove_duplicates(linked_list: LinkedListWithoutTail) -> LinkedListWithoutTail:
     """
     Remove duplicates from an unsorted linked list.
     Reference: Cracking the Code Interview
