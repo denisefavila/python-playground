@@ -1,4 +1,4 @@
-from src.linked_list.without_tail.linked_list import LinkedList
+from src.linked_list.linked_list import LinkedList
 
 
 def reverse(linked_list: LinkedList) -> LinkedList:

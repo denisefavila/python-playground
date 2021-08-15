@@ -1,8 +1,8 @@
 import pytest
 
-from src.linked_list.without_tail.linked_list import LinkedList
-from src.linked_list.without_tail.remove_duplicates import remove_duplicates
-from src.linked_list.without_tail.reverse import reverse
+from src.linked_list.linked_list import LinkedList
+from src.linked_list.remove_duplicates import remove_duplicates
+from src.linked_list.reverse import reverse
 
 
 class TestLinkedListWithoutTail:

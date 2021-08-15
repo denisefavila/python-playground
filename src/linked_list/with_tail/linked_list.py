@@ -1,6 +1,6 @@
 from typing import List, Any, Union
 
-from src.linked_list.linked_list import LinkedListProtocol
+from src.linked_list.protocol import LinkedListProtocol
 from src.linked_list.node import Node
 
 
