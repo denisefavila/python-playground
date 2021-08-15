@@ -1,5 +1,6 @@
 import pytest
 
+from src.linked_list.with_tail.k_to_last import kth_to_last
 from src.linked_list.with_tail.linked_list import LinkedListWithTail
 from src.linked_list.with_tail.remove_duplicates import remove_duplicates_without_buffer
 from src.linked_list.without_tail.linked_list import LinkedListWithoutTail
@@ -141,3 +142,20 @@ class TestLinkedListWithTail:
         assert resultant_linked_list.head == head
         assert resultant_linked_list.tail == tail
 
+    @pytest.mark.parametrize(
+        'linked_list_with_tail, k, expected_item',
+        [
+            ([1, 2, 3], 1, 2),
+            ([1, 2, 3, 4], 2, 2),
+            ([1, 1, 2], 0, 2),
+            ([1, 2], 3, None)
+        ],
+        indirect=['linked_list_with_tail'])
+    def test_k_to_last(
+            self,
+            linked_list_with_tail,
+            k,
+            expected_item,
+    ):
+        result = kth_to_last(linked_list=linked_list_with_tail, k=k)
+        assert result == expected_item
