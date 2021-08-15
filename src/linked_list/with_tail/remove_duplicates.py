@@ -29,6 +29,7 @@ def remove_duplicates_without_buffer(linked_list: LinkedListWithTail) -> LinkedL
     """
     Remove duplicates from an unsorted linked list with tail implementation.
     Don't use an additional buffer;
+    O(n^2)
     Reference: Cracking the Code Interview
     """
 
