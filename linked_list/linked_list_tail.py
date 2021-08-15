@@ -4,7 +4,7 @@ from typing import Any, Union
 from node import Node
 
 
-class LinkedList:
+class LinkedListWithTail:
 
     """
     Implement a single linked list using head and tail info.
@@ -66,17 +66,18 @@ class LinkedList:
         if not self.head.next:
             self.head = None
             self.tail = None
+            self.size -= 1
             return
 
-        last_node = self.head
-        # transverse the linked list
-        while last_node:
-            next_node = last_node.next
-            if next_node == self.tail:
+        current_node = self.head
+        previous_node = None
+
+        while current_node:
+            if not current_node.next:
                 break
-            last_node = next_node
+            previous_node = current_node
+            current_node = current_node.next
 
-        last_node.next = None
-
-        self.tail = last_node
+        previous_node.next = None
+        self.tail = previous_node
         self.size -= 1

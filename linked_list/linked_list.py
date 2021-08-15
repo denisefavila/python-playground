@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Any, Union
+from typing import Any, Union, Protocol
 
 from node import Node
 
@@ -68,13 +68,14 @@ class LinkedList:
             self.size -= 1
             return
 
-        last_node = self.head
-        # transverse the linked list
-        while last_node:
-            next_node = last_node.next
-            if not next_node.next:
-                break
-            last_node = next_node
+        current_node = self.head
+        previous_node = None
 
-        last_node.next = None
+        while current_node:
+            if not current_node.next:
+                break
+            previous_node = current_node
+            current_node = current_node.next
+
+        previous_node.next = None
         self.size -= 1
