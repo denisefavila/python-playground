@@ -1,9 +1,9 @@
 from typing import Union, Any
 
-from src.linked_list.with_tail.linked_list import LinkedListWithTail
+from src.linked_list.with_tail.linked_list import LinkedList
 
 
-def kth_to_last(linked_list: LinkedListWithTail, k: int) -> Union[Any, None]:
+def kth_to_last(linked_list: LinkedList, k: int) -> Union[Any, None]:
     """
     Find the kth to last element of a singly linked list.
     Reference: Cracking the Code Interview

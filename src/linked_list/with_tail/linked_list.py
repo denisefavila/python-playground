@@ -1,10 +1,10 @@
 from typing import List, Any, Union
 
-from src.linked_list.linked_list import LinkedList
+from src.linked_list.linked_list import LinkedListProtocol
 from src.linked_list.node import Node
 
 
-class LinkedListWithTail(LinkedList):
+class LinkedList(LinkedListProtocol):
     """
     Implement a single linked list using head and tail implementation.
     """

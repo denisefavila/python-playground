@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing import Any, Protocol, List
 
 
-class LinkedList(Protocol):
+class LinkedListProtocol(Protocol):
     """
         Implement the linked list interface.
     """
