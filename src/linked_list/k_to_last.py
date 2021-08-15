@@ -1,6 +1,6 @@
 from typing import Union, Any
 
-from src.linked_list.with_tail.linked_list import LinkedList
+from src.linked_list.linked_list import LinkedList
 
 
 def kth_to_last(linked_list: LinkedList, k: int) -> Union[Any, None]:
