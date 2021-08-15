@@ -5,6 +5,7 @@ def check_permutation(str1: str, str2: str) -> bool:
     """
     Given two strings, write a method to decide if one is a permutation of the other.
     Implementing using a hashtable to count chars.
+    Reference: Cracking the Code Interview
     Linear solution O(n)
     """
 

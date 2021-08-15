@@ -34,6 +34,7 @@ def check_one_edit(string1: str, string2: str) -> bool:
    There  are  three  types  of  edits  that  can be  performed  on  strings:
    insert  a  character, remove a character, or  replace a character.
    Given  two strings, write a  function to check if they are  one edit (or zero edits) away.
+   Reference: Cracking the Code Interview
    """
 
     string1 = string1.lower()

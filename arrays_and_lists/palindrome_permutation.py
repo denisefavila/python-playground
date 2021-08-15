@@ -4,6 +4,7 @@ from collections import defaultdict
 def check_palindrome_permutation(string: str) -> bool:
     """
     Given a string, write a function to check if it is a permutation of a palindrome.
+    Reference: Cracking the Code Interview
     Linear solution O(n)
     """
 
