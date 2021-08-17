@@ -1,19 +1,22 @@
-from src.linked_list.linked_list import LinkedList
+from typing import Optional
+
+from src.linked_list.node import Node
 
 
-def reverse(linked_list: LinkedList) -> LinkedList:
+def reverse(head: Optional[Node]) -> Optional[Node]:
     """
-    Reverse the linked list.
+    Given the head of a singly linked list, reverse the list, and return the reversed list.
+    https://leetcode.com/problems/reverse-linked-list/
     """
-    current_node = linked_list.head
+
     previous_node = None
 
-    while current_node:
-        next_node = current_node.next
-        current_node.next = previous_node
+    while head:
+        next_node = head.next
+        head.next = previous_node
+        previous_node = head
+        head = next_node
 
-        previous_node = current_node
-        current_node = next_node
+    return previous_node
 
-    linked_list.head = previous_node
-    return linked_list
+

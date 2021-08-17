@@ -1,4 +1,4 @@
-from src.linked_list.linked_list import LinkedList
+from src.linked_list.models.linked_list import LinkedList
 
 
 def sum_lists(linked_list1: LinkedList, linked_list2: LinkedList) -> LinkedList:

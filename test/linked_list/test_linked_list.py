@@ -1,101 +1,153 @@
 import pytest
 
-from src.linked_list.linked_list import LinkedList
-from src.linked_list.remove_duplicates import remove_duplicates
+from src.linked_list.k_to_last import remove_kth_to_last
+from src.linked_list.node import Node
+from src.linked_list.remove_duplicates import remove_duplicates, distinct_elements
 from src.linked_list.reverse import reverse
-from src.linked_list.sum_lists import sum_lists
+from src.linked_list.swap_nodes_in_pair import swap_pairs
 
 
-class TestLinkedListWithoutTail:
-
-    @pytest.fixture
-    def linked_list(self, request) -> LinkedList:
-        values = request.param
-        linked_list = LinkedList()
-        for value in values:
-            linked_list.push_back(value)
-        return linked_list
+class TestLinkedList:
 
     @pytest.fixture
-    def another_linked_list(self, request) -> LinkedList:
+    def linked_list(self, request) -> Node:
         values = request.param
-        linked_list = LinkedList()
-        for value in values:
-            linked_list.push_back(value)
-        return linked_list
+
+        if not values:
+            return
+
+        head = Node(item=values[0])
+
+        last_node = head
+        for value in values[1:]:
+            new_node = Node(item=value)
+            while last_node.next:
+                last_node = last_node.next
+
+            last_node.next = new_node
+        return head
 
     @pytest.mark.parametrize(
-        'linked_list, expected_final_items, head',
+        'linked_list, expected_final_items',
         [
-            ([1, 2, 3], [1, 2, 3], 1),
-            ([1, 2, 2], [1, 2], 1),
-            ([1, 1, 2], [1, 2], 1)
+            ([1, 2, 3], [1, 2, 3]),
+            ([1, 2, 2], [1, 2]),
+            ([1, 1, 2], [1, 2]),
+            (['a', 'b', 'c', 'c'], ['a', 'b', 'c']),
+            ([], [])
         ],
         indirect=['linked_list'])
     def test_remove_duplicates(
             self,
             linked_list,
             expected_final_items,
-            head,
     ):
+        result = remove_duplicates(linked_list)
 
-        resultant_linked_list = remove_duplicates(linked_list)
-        assert resultant_linked_list.items() == expected_final_items
-        assert resultant_linked_list.head.item == head
+        items = []
+        current = result
+        while current:
+            items.append(current.item)
+            current = current.next
+
+        assert items == expected_final_items
 
     @pytest.mark.parametrize(
-        'linked_list, expected_final_items, head',
+        'linked_list, expected_final_items',
         [
-            ([], [], None),
+            ([1, 2, 3], [1, 2, 3]),
+            ([1, 2, 2], [1]),
+            ([1, 1, 2], [2]),
+            (['a', 'b', 'c', 'c'], ['a', 'b']),
+            ([], [])
         ],
         indirect=['linked_list'])
-    def test_remove_duplicates_empty(
+    def test_distinct_elements(
             self,
             linked_list,
             expected_final_items,
-            head,
     ):
+        result = distinct_elements(linked_list)
 
-        resultant_linked_list = remove_duplicates(linked_list)
-        assert resultant_linked_list.items() == expected_final_items
-        assert resultant_linked_list.head == head
+        items = []
+        current = result
+        while current:
+            items.append(current.item)
+            current = current.next
+
+        assert items == expected_final_items
 
     @pytest.mark.parametrize(
-        'linked_list, expected_final_items, head',
+        'linked_list, expected_final_items',
         [
-            ([1, 2, 3], [3, 2, 1], 3),
-            ([1, 2, 2], [2, 2, 1], 2),
-            ([1, 1, 2], [2, 1, 1], 2),
-            (['a', 'b', 'c', 'd'], ['d', 'c', 'b', 'a'], 'd')
+            ([1, 2, 3], [3, 2, 1]),
+            ([1, 2, 2], [2, 2, 1]),
+            ([1, 1, 2], [2, 1, 1]),
+            (['a', 'b', 'c', 'c'], ['c', 'c', 'b', 'a']),
+            ([], [])
         ],
         indirect=['linked_list'])
-    def test_reverse_list(
+    def test_reverse(
             self,
             linked_list,
             expected_final_items,
-            head,
     ):
-        resultant_linked_list = reverse(linked_list)
-        assert resultant_linked_list.items() == expected_final_items
-        assert resultant_linked_list.head.item == head
+        result = reverse(linked_list)
+
+        items = []
+        current = result
+        while current:
+            items.append(current.item)
+            current = current.next
+
+        assert items == expected_final_items
 
     @pytest.mark.parametrize(
-        'linked_list, another_linked_list, expected_final_items, head',
+        'linked_list, expected_final_items, k',
         [
-            ([7, 1, 6], [5, 9, 2], [2, 1, 9], 2),
-            ([7, 1, 6], [2, 2], [9, 3, 6], 9),
-            ([3, 2, 1], [3, 2, 1], [6, 4, 2], 6),
-            ([2, 2], [7, 1, 6], [9, 3, 6], 9),
-
+            ([1, 2, 3, 4], [1, 2, 4], 2),
+            ([1, 2, 2], [1, 2], 1),
+            ([1, 1, 2], [1, 2], 3),
+            ([], [], 2),
+            ([1, 2, 3, 4], [1, 2, 3, 4], 6),
         ],
-        indirect=['linked_list', 'another_linked_list'])
-    def test_sum_lists(
+        indirect=['linked_list'])
+    def test_remove_k_to_last(
             self,
             linked_list,
-            another_linked_list,
             expected_final_items,
-            head,
+            k
     ):
-        resultant_linked_list = sum_lists(linked_list, another_linked_list)
-        assert resultant_linked_list.items() == expected_final_items
-        assert resultant_linked_list.head.item == head
+        result = remove_kth_to_last(linked_list, k)
+
+        items = []
+        current = result
+        while current:
+            items.append(current.item)
+            current = current.next
+
+        assert items == expected_final_items
+
+    @pytest.mark.parametrize(
+        'linked_list, expected_final_items',
+        [
+            ([1, 2, 3, 4], [2, 1, 4, 3]),
+            ([1, 2, 2], [2, 1, 2]),
+            ([1, 1, 2], [1, 1, 2]),
+            ([], []),
+        ],
+        indirect=['linked_list'])
+    def test_swap_pairs(
+            self,
+            linked_list,
+            expected_final_items,
+    ):
+        result = swap_pairs(linked_list)
+
+        items = []
+        current = result
+        while current:
+            items.append(current.item)
+            current = current.next
+
+        assert items == expected_final_items

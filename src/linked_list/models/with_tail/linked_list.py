@@ -1,17 +1,18 @@
-
 from typing import List, Any, Union
 
-from src.linked_list.protocol import LinkedListProtocol
+from src.linked_list.models.protocol import LinkedListProtocol
 from src.linked_list.node import Node
 
 
 class LinkedList(LinkedListProtocol):
     """
-    Implement a single linked list.
+    Implement a single linked list using head and tail implementation.
     """
+
     def __init__(self):
         self.size: int = 0
         self.head: Union[Node, None] = None
+        self.tail: Union[Node, None] = None
 
     def __iter__(self):
         current = self.head
@@ -28,24 +29,20 @@ class LinkedList(LinkedListProtocol):
 
     # Inserts an item at the beginning. O(1)
     def push_front(self, item: Any) -> None:
-        node = Node(item=item, next=self.head)
-        self.head = node
+        if not self.head:
+            self.head = self.tail = Node(item=item)
+        else:
+            self.head = Node(item=item, next=self.head)
         self.size += 1
 
-    # Inserts an item at the end. O(n)
+    # Inserts an item at the end. O(1)
     def push_back(self, item: Any) -> None:
         new_node = Node(item=item)
         if not self.head:
-            self.head = new_node
-            self.size += 1
-            return
-
-        last_node = self.head
-        # transverse the linked list
-        while last_node.next:
-            last_node = last_node.next
-
-        last_node.next = new_node
+            self.head = self.tail = new_node
+        else:
+            self.tail.next = new_node
+            self.tail = self.tail.next
         self.size += 1
 
     # Remove item at the beginning. O(1)
@@ -53,6 +50,8 @@ class LinkedList(LinkedListProtocol):
         aux = self.head
         if aux:
             self.head = aux.next
+            if not aux.next:
+                self.tail = None
             self.size -= 1
 
     # Remove item at the end. O(n)
@@ -65,6 +64,7 @@ class LinkedList(LinkedListProtocol):
         # Check if head need to be removed
         if not self.head.next:
             self.head = None
+            self.tail = None
             self.size -= 1
             return
 
@@ -78,6 +78,7 @@ class LinkedList(LinkedListProtocol):
             current_node = current_node.next
 
         previous_node.next = None
+        self.tail = previous_node
         self.size -= 1
 
     def items(self) -> List[Any]:
